@@ -1,5 +1,5 @@
 plugins {
-    id "com.github.lkishalmi.gatling" version "3.2.9"
+    id "com.github.lkishalmi.gatling" version "3.3.2"
     id 'scala'
 }
 
@@ -8,9 +8,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.scala-lang:scala-library:2.13.2'
+    compile 'org.scala-lang:scala-library:2.12.10'
 }
 
 gatling {
-    scalaVersion = '2.13.2'
+    scalaVersion = '2.12.10'
 }
