@@ -2,11 +2,12 @@ package simulations
 
 import baseConfig.BaseSimulation
 import io.gatling.core.Predef._
+import io.gatling.core.structure.ScenarioBuilder
 import io.gatling.http.Predef._
 
 class CheckResponseBodyAndExtract extends BaseSimulation {
 
-  val scn = scenario("Video Game DB")
+  val scn: ScenarioBuilder = scenario("Video Game DB")
 
     .exec(http("Get specific game")
       .get("videogames/1")

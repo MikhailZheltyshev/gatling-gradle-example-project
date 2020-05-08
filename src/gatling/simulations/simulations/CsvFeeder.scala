@@ -2,13 +2,15 @@ package simulations
 
 import baseConfig.BaseSimulation
 import io.gatling.core.Predef._
+import io.gatling.core.feeder.BatchableFeederBuilder
+import io.gatling.core.structure.{ChainBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
 
 
 class CsvFeeder extends BaseSimulation {
-  val csvFeeder = csv("feeders/gamesList.csv").circular
+  val csvFeeder: BatchableFeederBuilder[String]#F = csv("feeders/gamesList.csv").circular
 
-  def getSpecificVideoGame() = {
+  def getSpecificVideoGame(): ChainBuilder = {
     repeat(10) {
       feed(csvFeeder)
         .exec(http("Get specific game")
@@ -19,7 +21,7 @@ class CsvFeeder extends BaseSimulation {
     }
   }
 
-  val scn = scenario("Video Game CSV Feeder test")
+  val scn: ScenarioBuilder = scenario("Video Game CSV Feeder test")
     .exec(getSpecificVideoGame())
 
   setUp(

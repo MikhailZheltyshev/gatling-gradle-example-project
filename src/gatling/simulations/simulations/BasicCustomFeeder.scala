@@ -2,15 +2,16 @@ package simulations
 
 import baseConfig.BaseSimulation
 import io.gatling.core.Predef._
+import io.gatling.core.structure.{ChainBuilder, ScenarioBuilder}
 import io.gatling.http.Predef._
 
 
 class BasicCustomFeeder extends BaseSimulation {
-  var idNumbers = (1 to 10).iterator
+  var idNumbers: Iterator[Int] = (1 to 10).iterator
 
-  val customFeeder = Iterator.continually(Map("gameId" -> idNumbers.next()))
+  val customFeeder: Iterator[Map[String, Int]] = Iterator.continually(Map("gameId" -> idNumbers.next()))
 
-  def getSpecificVideoGame() = {
+  def getSpecificVideoGame(): ChainBuilder = {
     repeat(10) {
       feed(customFeeder)
         .exec(http("Get specific game")
@@ -20,7 +21,7 @@ class BasicCustomFeeder extends BaseSimulation {
     }
   }
 
-  val scn = scenario("Video Game CSV Feeder test")
+  val scn: ScenarioBuilder = scenario("Video Game CSV Feeder test")
     .exec(getSpecificVideoGame())
 
   setUp(
